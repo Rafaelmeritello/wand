@@ -4,23 +4,21 @@ services:
   # Frontend do jogo
   web:
     build:
-      context: ./web
-      dockerfile: Dockerfile
+      # Buscando direto do repositório de código do frontend
+      context: https://github.com/solero/wand-web.git#master
     environment:
       - LOGIN_IP=${LOGIN_IP}
       - LOGIN_PORT=${LOGIN_PORT}
       - WORLD_PORT=${WORLD_PORT}
       - MEDIA_URL=${MEDIA_URL}
-    networks:
-      - coolify
+    restart: always
 
-  # Servidor de mídia (ajuste o caminho se necessário)
+  # Servidor de mídia (Imagens)
   media:
-    image: nginx:alpine
-    volumes:
-      - ./vanilla-media:/usr/share/nginx/html/media
-    networks:
-      - coolify
+    build:
+      # Buscando direto do repositório que contém as imagens
+      context: https://github.com/solero/vanilla-media.git#master
+    restart: always
 
 networks:
   coolify:
