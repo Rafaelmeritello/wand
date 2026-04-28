@@ -1,11 +1,10 @@
 version: '3.8'
 
 services:
-  # Frontend do jogo
   web:
     build:
-      # Buscando direto do repositório de código do frontend
-      context: https://github.com/solero/wand-web.git#master
+      context: .
+      dockerfile: web/Dockerfile
     environment:
       - LOGIN_IP=${LOGIN_IP}
       - LOGIN_PORT=${LOGIN_PORT}
@@ -13,11 +12,10 @@ services:
       - MEDIA_URL=${MEDIA_URL}
     restart: always
 
-  # Servidor de mídia (Imagens)
   media:
     build:
-      # Buscando direto do repositório que contém as imagens
-      context: https://github.com/solero/vanilla-media.git#master
+      context: .
+      dockerfile: vanilla-media/Dockerfile
     restart: always
 
 networks:
